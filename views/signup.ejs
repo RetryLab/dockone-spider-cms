@@ -39,24 +39,23 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
+                        <h3 class="panel-title">Please Sign Up</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" action="http://114.112.58.126:3000/user/account" method="post">
+                        <form role="form">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="Name" name="name" type="name" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="E-mail" name="email" type="email">
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                    </label>
-                                </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="javascript:;" onclick='submit();' class="btn btn-lg btn-success btn-block">Login</a>
+                                <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
+                                <a href="javascript:;" onclick='submit();' class="btn btn-lg btn-success btn-block">Signup</a>
                             </fieldset>
                         </form>
                     </div>
@@ -81,24 +80,25 @@
 
 <script type="text/javascript">
 
-function submit() {
-    $.ajax({
-        type: 'post',
-        dataType: 'json',
-        data:{
-            email: $('input[name="email"]').val(),
-            password: $('input[name="password"]').val(),
-        },
-        url: 'http://114.112.58.126:3000/user/account',
-        success: function (ret) {
-            $.setCookie('authorization', ret.authorization);
-            window.location='/index.html';
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
-}
+    function submit() {
+        $.ajax({
+            type: 'put',
+            dataType: 'json',
+            data:{
+                name: $('input[name="name"]').val(),
+                email: $('input[name="email"]').val(),
+                password: $('input[name="password"]').val(),
+            },
+            url: 'http://114.112.58.126:3000/user/account',
+            success: function (ret) {
+                console.log(ret);
+                window.location='/login.html';
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 
 </script>
 

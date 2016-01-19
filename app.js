@@ -24,6 +24,8 @@ var hbs = exphbs.create({
     extname: '.hbs'
 });
 
+appRouter(app);
+
 app.use(express.static(path.join(__dirname, 'public')));
 // app.engine('html');
 app.set('view engine', 'ejs');
@@ -39,7 +41,5 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-appRouter(app);
 
 module.exports = app;

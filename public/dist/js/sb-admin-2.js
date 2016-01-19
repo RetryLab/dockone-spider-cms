@@ -1,7 +1,36 @@
+$.setCookie= function (name, value) {
+    var Days = 30;
+    var exp = new Date();
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    document.cookie= name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+
+$.getCookie= function (name) {
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+        return unescape(arr[2]);
+    else
+        return null;
+}
+
+$.getUrlParams= function () {
+    var params= {}
+    var url= window.location.toString();
+    try{
+        var paramstr= url.slice(url.indexOf('?')+1, url.length).split('&');
+        for(var i=0 ; i< paramstr.length ; i++){
+            var arr= paramstr[i].split('=');
+            params[arr[0]]=arr[1];
+        }
+    }catch(e){
+        console.log(e)
+    }
+    return params;
+}
+
 $(function() {
 
     $('#side-menu').metisMenu();
-
 });
 
 //Loads the correct sidebar on window load,
