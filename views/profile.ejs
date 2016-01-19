@@ -129,7 +129,7 @@
                                         </div>
                                         <div class="form-group" name="docker-script">
                                             <label>Docker Script</label>
-                                            <p class="form-control-static"></p>
+                                            <pre class="form-control-static"></pre>
                                         </div>
                                         <a onclick="submit()" class="btn btn-default">Save</a>
                                         <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->
@@ -188,7 +188,7 @@
                 $('input[name="disk_use"]').val(data.disk_use);
                 $('input[name="transport_use"]').val(data.transport_use);
                 $('input[name="receive_use"]').val(data.receive_use);
-                $('div.form-group[name="docker-script"] p').val(data.script);
+                $('div.form-group[name="docker-script"] pre').html((data.script || '').replace(/\s+/g, ' '));
                 machine_id= data.machine_id;
             },
             error: function (error) {
