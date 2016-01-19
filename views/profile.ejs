@@ -17,12 +17,6 @@
     <!-- MetisMenu CSS -->
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
@@ -376,7 +370,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Machines</h1>
+                    <h1 class="page-header">Machine</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -385,26 +379,58 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Machine List
+                            Basic Form Elements
                         </div>
-                        <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Description</th>
-                                            <th>Options</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input class="form-control" name="name" placeholder="Name">
+                                         </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <input class="form-control" name="description"  placeholder="Description">
+                                        </div>
 
-                                    </tbody>
-                                </table>
+                                        <div class="form-group">
+                                            <label>cpu_use</label>
+                                            <input class="form-control" name="cpu_use"  placeholder="cpu_use">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>cpu_num_use</label>
+                                            <input class="form-control" name="cpu_num_use"  placeholder="cpu_num_use">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>mem_use</label>
+                                            <input class="form-control" name="mem_use"  placeholder="mem_use">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>disk_use</label>
+                                            <input class="form-control" name="disk_use"  placeholder="disk_use">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>transport_use</label>
+                                            <input class="form-control" name="transport_use"  placeholder="transport_use">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>receive_use</label>
+                                            <input class="form-control" name="receive_use"  placeholder="receive_use">
+                                        </div>
+                                        <div class="form-group" name="docker-script">
+                                            <label>Docker Script</label>
+                                            <p class="form-control-static"></p>
+                                        </div>
+                                        <a onclick="submit()" class="btn btn-default">Save</a>
+                                        <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+
+                                <!-- /.col-lg-6 (nested) -->
                             </div>
-                            <!-- /.table-responsive -->
+                            <!-- /.row (nested) -->
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -428,42 +454,73 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
-    });
-    
-    $.ajax({
-        type: 'get',
-        url: 'http://114.112.58.126:3000/user/machines',
-        headers: {
-            authorization: $.getCookie('authorization')
-        },
-        success: function (data) {
-            if(Array.isArray(data)){
-                $('tbody').html(data.map(function(item) {
-                    return "<tr><td>"+item._id+"</td><td>"+item.name+"</td><td>"+item.description+"</td><td><a href='/machine.html?machine_id="+item._id+"'>update</a></td></tr>"
-                }).join(''))
-
-            } else {
-
-            }
-        },
-        error: function (error) {
-        }
-    });
-    </script>
-
 </body>
+
+<script type="text/javascript">
+
+    var machine_id= $.getUrlParams().machine_id || '';
+    var profile_id= $.getUrlParams().profile_id || '';
+    if(profile_id){
+        $.ajax({
+            type: 'get',
+            url: 'http://114.112.58.126:3000/user/profile/' + profile_id,
+            headers: {
+                authorization: $.getCookie('authorization')
+            },
+            success: function (data) {
+                $('input[name="name"]').val(data.name);
+                $('input[name="description"]').val(data.description);
+                $('input[name="cpu_use"]').val(data.cpu_use);
+                $('input[name="cpu_num_use"]').val(data.cpu_num_use);
+                $('input[name="mem_use"]').val(data.mem_use);
+                $('input[name="disk_use"]').val(data.disk_use);
+                $('input[name="transport_use"]').val(data.transport_use);
+                $('input[name="receive_use"]').val(data.receive_use);
+                $('div.form-group[name="docker-script"] p').val(data.script);
+                machine_id= data.machine_id;
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }else{
+        $('div.form-group[name="docker-script"]').remove();
+    }
+
+
+    function submit () {
+        $.ajax({
+            type: profile_id ? 'put' : 'post',
+            dataType: 'json',
+            data:{
+                name: $('input[name="name"]').val(),
+                description: $('input[name="description"]').val(),
+                os: $('input[name="os"]').val(),
+                cpu_use: $('input[name="cpu_use"]').val(),
+                cpu_num_use: $('input[name="cpu_num_use"]').val(),
+                mem_use: $('input[name="mem_use"]').val(),
+                disk_use: $('input[name="disk_use"]').val(),
+                transport_use: $('input[name="transport_use"]').val(),
+                receive_use: $('input[name="receive_use"]').val(),
+                machine_id: machine_id,
+            },
+            headers: {
+                authorization: $.getCookie('authorization')
+            },
+            url: 'http://114.112.58.126:3000/user/profile/'+ profile_id,
+            success: function (ret) {
+                console.log(ret);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+
+</script>
 
 </html>
