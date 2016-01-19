@@ -154,7 +154,7 @@
         success: function (data) {
             if(Array.isArray(data)){
                 $('tbody').html(data.map(function(item) {
-                    return "<tr><td>"+item._id+"</td><td>"+item.name+"</td><td>"+item.description+"</td><td><a href='/machine.html?machine_id="+item._id+"'>Update</a>  <a href='/profile.html?machine_id="+item._id+"'>Add Profile</a></td></tr>"
+                    return "<tr><td>"+item._id+"</td><td>"+item.name+"</td><td>"+item.description+"</td><td><a href='/machine.html?machine_id="+item._id+"' title='Update'><i class='fa fa-edit fa-fw'></i></a><a href='/profile.html?machine_id="+item._id+"' title='Add Profile'><i class='fa fa-plus-circle fa-fw'></i></a><a href='/profiles.html?machine_id="+item._id+"' title='Profile List'><i class='fa fa-th-list fa-fw'></i></a></td></tr>"
                 }).join(''))
 
             } else {
