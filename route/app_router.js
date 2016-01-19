@@ -18,6 +18,10 @@ module.exports = function (app) {
     app.get('/machine.html', function (req, res) { res.render('machine'); });
     //machine
     app.get('/machines.html', function (req, res) { res.render('machines'); });
+    //profile
+    app.get('/profile.html', function (req, res) { res.render('profile'); });
+    //profiles
+    app.get('/profiles.html', function (req, res) { res.render('profiles'); });
 
 
 }
