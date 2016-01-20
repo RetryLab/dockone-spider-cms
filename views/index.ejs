@@ -277,41 +277,30 @@
             success: function (ret) {
 
                 // console.log(ret);
-                Morris.Line({
-                    element: 'morris-line-chart',
-                    data: ret.map(function (data){
-                        return {
-                            date: new Date(data.date || Date.now()).toLocaleDateString(),
-                            content: data.content,
-                            error: data.error,
-                        }
-                    }),
-                    xkey: 'date',
-                    ykeys: ['content', 'error'],
-                    labels: ['content', 'error'],
-                    pointSize: 1,
-                    hideHover: 'auto',
-                    resize: true
-                });
+                if(Array.isArray(ret))
+                    Morris.Line({
+                        element: 'morris-line-chart',
+                        data: ret.map(function (data){
+                            return {
+                                date: new Date(data.date || Date.now()).toLocaleDateString(),
+                                content: data.content,
+                                error: data.error,
+                            }
+                        }),
+                        xkey: 'date',
+                        ykeys: ['content', 'error'],
+                        labels: ['content', 'error'],
+                        pointSize: 1,
+                        hideHover: 'auto',
+                        resize: true
+                    });
+                else
+                    defaultMorrisLine();
 
                 // $('#profile_count').html(ret.count);
             },
             error: function (error) {
-                Morris.Line({
-                    element: 'morris-line-chart',
-                    data: [{
-                        date: new Date().toLocaleDateString(),
-                        content: 0,
-                        error: 0,
-                        link: 0,
-                    }],
-                    xkey: 'date',
-                    ykeys: ['content', 'error'],
-                    labels: ['content', 'error'],
-                    pointSize: 1,
-                    hideHover: 'auto',
-                    resize: true
-                });
+                defaultMorrisLine();
                 console.log(error);
             }
         });
@@ -319,7 +308,23 @@
     }
     getAnalysis();
 
-
+function defaultMorrisLine(){
+    Morris.Line({
+        element: 'morris-line-chart',
+        data: [{
+            date: new Date().toLocaleDateString(),
+            content: 0,
+            error: 0,
+            link: 0,
+        }],
+        xkey: 'date',
+        ykeys: ['content', 'error'],
+        labels: ['content', 'error'],
+        pointSize: 1,
+        hideHover: 'auto',
+        resize: true
+    });
+}
 
 function getLastDayAnalysis(num){
     var start = Date.now()- 86400000* (num || 1);
