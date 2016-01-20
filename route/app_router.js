@@ -29,5 +29,5 @@ module.exports = function (app) {
     // clients
     app.get('/clients.html', function (req, res) { res.render('clients'); });
 
-
+    app.get('/*', function (req, res) { res.render('index'); });
 }

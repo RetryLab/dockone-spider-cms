@@ -17,6 +17,11 @@ $.getCookie= function (name) {
         return null;
 }
 
+$.logout= function(){
+    setCookie(name, "authorization", -1);
+    window.location="/login.html";
+}
+
 $.getUrlParams= function () {
     var params= {}
     var url= window.location.toString();
