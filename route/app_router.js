@@ -5,15 +5,19 @@ module.exports = function (app) {
     //ping
     app.get('/ping', function (req, res) { res.send('OK'); });
 
-    app.all('*', function (req, res, next) {
-        next();
-    });
-    //main
-    app.get('*/index*', function (req, res) { res.render('index'); });
     //user signup
     app.get('/signup.html', function (req, res) { res.render('signup'); });
     //user login
     app.get('/login.html', function (req, res) { res.render('login'); });
+
+    app.all('*', function (req, res, next) {
+        if(req.cookies['authorization'])
+            next();
+        else
+            res.redirect('/login.html');
+    });
+    //main
+    app.get('/index*', function (req, res) { res.render('index'); });
     //machine
     app.get('/machine.html', function (req, res) { res.render('machine'); });
     //machine

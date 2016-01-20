@@ -6,12 +6,16 @@ var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
+var cookieParser= require('cookie-parser');
 
 var config = require('./config');
 var appRouter = require('./route/app_router');
 
 var app = express();
-
+app.use(favicon(__dirname + '/favicon.ico'));
+app.use(cookieParser()); // cookies
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 // set view engine
 var hbs = exphbs.create({
     // Specify helpers which are only registered on this instance.
@@ -24,13 +28,11 @@ var hbs = exphbs.create({
     extname: '.hbs'
 });
 
-appRouter(app);
 
 app.use(express.static(path.join(__dirname, 'public')));
 // app.engine('html');
 app.set('view engine', 'ejs');
 
-app.use(favicon(__dirname + '/favicon.ico'));
 
 // http request logger
 if (process.env.NODE_ENV === 'development') {
@@ -39,7 +41,6 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('common'));
 }
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+appRouter(app);
 
 module.exports = app;
