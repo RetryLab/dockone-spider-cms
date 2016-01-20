@@ -27,6 +27,21 @@ body {
     }
 }
 
+.navbar {
+    margin-bottom: 0px;
+    background-image: url(/spider-48.png);
+    background-repeat: no-repeat;
+    background-position: 5px -5px;
+}
+
+.navbar-header {
+    margin-left: 40px;
+}
+
+.navbar-brand:after {
+    content: "Spider Web";
+}
+
 .navbar-top-links {
     margin-right: 0;
 }
@@ -134,7 +149,6 @@ body {
         width: 250px;
         margin-top: 51px;
     }
-
     .navbar-top-links .dropdown-messages,
     .navbar-top-links .dropdown-tasks,
     .navbar-top-links .dropdown-alerts {
@@ -253,7 +267,7 @@ table.dataTable thead .sorting:after {
     content: "\f0dc";
     float: right;
     font-family: fontawesome;
-    color: rgba(50,50,50,.5);
+    color: rgba(50, 50, 50, .5);
 }
 
 .btn-circle {
