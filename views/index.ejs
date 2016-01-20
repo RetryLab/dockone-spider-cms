@@ -277,7 +277,7 @@
             success: function (ret) {
 
                 // console.log(ret);
-                if(Array.isArray(ret))
+                if(Array.isArray(ret) && ret.length)
                     Morris.Line({
                         element: 'morris-line-chart',
                         data: ret.map(function (data){
