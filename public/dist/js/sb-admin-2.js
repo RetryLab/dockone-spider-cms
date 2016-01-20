@@ -1,7 +1,7 @@
-$.setCookie= function (name, value) {
-    var Days = 30;
+$.setCookie= function (name, value, day) {
+    var Days = day || 1;
     var exp = new Date();
-    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    exp.setTime(exp.getTime() + Days* 86400000);
     document.cookie= name + "="+ escape (value) + ";expires=" + exp.toGMTString();
 }
 
