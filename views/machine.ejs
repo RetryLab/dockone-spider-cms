@@ -220,6 +220,8 @@
             url: $.getApiHost('/user/machine/'+ machine_id),
             success: function (ret) {
                 console.log(ret);
+                alert('success');
+                window.location='/machines.html';
             },
             error: function (error) {
                 console.log(error);

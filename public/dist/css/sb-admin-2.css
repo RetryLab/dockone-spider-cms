@@ -30,6 +30,10 @@ body {
     }
 }
 
+.page-header {
+    margin: 50px 0 40px;
+}
+
 .navbar {
     margin-bottom: 0px;
     background-image: url(/spider-48.png);

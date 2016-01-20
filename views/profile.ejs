@@ -225,6 +225,8 @@
             url: $.getApiHost('/user/profile/'+ profile_id),
             success: function (ret) {
                 console.log(ret);
+                alert('success');
+                window.location='/profiles.html';
             },
             error: function (error) {
                 console.log(error);
