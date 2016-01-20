@@ -327,10 +327,11 @@ function defaultMorrisLine(){
 function getLastDayAnalysis(num){
     var start = Date.now()- 86400000* (num || 1);
     var end = Date.now();
-    getAnalysis({
+    var query= {
         start : getQueryDate(start),
         end: getQueryDate(end)
-    });
+    };
+    getAnalysis(query);
 }
 
 function getQueryDate(time){
@@ -341,7 +342,6 @@ function getQueryDate(time){
     date.setMilliseconds(0);
     return date.toJSON();
 }
-
 
 </script>
 </html>
