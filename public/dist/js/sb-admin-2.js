@@ -1,5 +1,5 @@
 $.getApiHost=function(path){
-    return 'http://114.112.58.126:3000'+ path;
+    return "http://114.112.58.126:3000"+ path;
 }
 
 $.setCookie= function (name, value, day) {
@@ -18,7 +18,7 @@ $.getCookie= function (name) {
 }
 
 $.logout= function(){
-    setCookie(name, "authorization", -1);
+    $.setCookie("authorization", "", -1);
     window.location="/login.html";
 }
 
