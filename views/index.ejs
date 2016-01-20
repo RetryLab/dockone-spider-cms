@@ -69,6 +69,9 @@
                         <li>
                             <a href="/profiles.html"><i class="fa fa-files-o fa-fw"></i> Profiles</a>
                         </li>
+                        <li>
+                            <a href="/clients.html"><i class="fa fa-tasks fa-fw"></i> Clients</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -121,6 +124,28 @@
                             </div>
                         </div>
                         <a href="/profiles.html">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" id="client_count">0</div>
+                                    <div>Clients Count</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/clients.html">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -191,9 +216,8 @@
         headers: {
             authorization: $.getCookie('authorization')
         },
-        url: 'http://114.112.58.126:3000/user/machines/count',
+        url: $.getApiHost('/user/machines/count'),
         success: function (ret) {
-            console.log(ret);
             $('#machine_count').html(ret.count);
         },
         error: function (error) {
@@ -206,10 +230,23 @@
         headers: {
             authorization: $.getCookie('authorization')
         },
-        url: 'http://114.112.58.126:3000/user/profiles/count',
+        url: $.getApiHost('/user/profiles/count'),
         success: function (ret) {
-            console.log(ret);
             $('#profile_count').html(ret.count);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    $.ajax({
+        type: 'get',
+        headers: {
+            authorization: $.getCookie('authorization')
+        },
+        url: $.getApiHost('/user/clients'),
+        success: function (ret) {
+            $('#profile_count').html(ret.length);
         },
         error: function (error) {
             console.log(error);
@@ -223,7 +260,7 @@
             headers: {
                 authorization: $.getCookie('authorization')
             },
-            url: 'http://114.112.58.126:3000/user/analysis',
+            url: $.getApiHost('/user/analysis'),
             data: query || {},
             success: function (ret) {
 

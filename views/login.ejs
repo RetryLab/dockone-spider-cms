@@ -87,7 +87,7 @@
                 email: $('input[name="email"]').val(),
                 password: $('input[name="password"]').val(),
             },
-            url: 'http://114.112.58.126:3000/user/account',
+            url: $.getApiHost('/user/account'),
             success: function (ret) {
                 $.setCookie('authorization', ret.authorization);
                 window.location='/index.html';

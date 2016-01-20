@@ -26,6 +26,8 @@ module.exports = function (app) {
     app.get('/profile.html', function (req, res) { res.render('profile'); });
     //profiles
     app.get('/profiles.html', function (req, res) { res.render('profiles'); });
+    // clients
+    app.get('/clients.html', function (req, res) { res.render('clients'); });
 
 
 }

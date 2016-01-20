@@ -69,6 +69,9 @@
                         <li>
                             <a href="/profiles.html"><i class="fa fa-files-o fa-fw"></i> Profiles</a>
                         </li>
+                        <li>
+                            <a href="/clients.html"><i class="fa fa-tasks fa-fw"></i> Clients</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -175,7 +178,7 @@
     if(profile_id){
         $.ajax({
             type: 'get',
-            url: 'http://114.112.58.126:3000/user/profile/' + profile_id,
+            url: $.getApiHost('/user/profile/'+ profile_id),
             headers: {
                 authorization: $.getCookie('authorization')
             },
@@ -219,7 +222,7 @@
             headers: {
                 authorization: $.getCookie('authorization')
             },
-            url: 'http://114.112.58.126:3000/user/profile/'+ profile_id,
+            url: $.getApiHost('/user/profile/'+ profile_id),
             success: function (ret) {
                 console.log(ret);
             },
