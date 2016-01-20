@@ -188,7 +188,7 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <div id="morris-line-chart"></div>
+                            <div id="morris-bar-chart"></div>
                         </div>
                     </div>
                 </div>
@@ -264,7 +264,7 @@
     });
 
     function getAnalysis(query){
-        $('#morris-line-chart').empty();
+        $('#morris-bar-chart').empty();
         $.ajax({
             type: 'get',
             headers: {
@@ -275,26 +275,7 @@
             success: function (ret) {
 
                 // console.log(ret);
-                if(Array.isArray(ret) && ret.length)
-                    Morris.Line({
-                        element: 'morris-line-chart',
-                        data: ret.map(function (data){
-                            return {
-                                date: new Date(data.date || Date.now()).toLocaleDateString(),
-                                content: data.content,
-                                error: data.error,
-                            }
-                        }),
-                        xkey: 'date',
-                        ykeys: ['content', 'error'],
-                        labels: ['content', 'error'],
-                        pointSize: 1,
-                        hideHover: 'auto',
-                        resize: true
-                    });
-                else
-                    defaultMorrisLine();
-
+                showMorrisBar(ret)
                 // $('#profile_count').html(ret.count);
             },
             error: function (error) {
@@ -306,19 +287,29 @@
     }
     getAnalysis();
 
-function defaultMorrisLine(){
-    Morris.Line({
-        element: 'morris-line-chart',
-        data: [{
+function showMorrisBar(list){
+    var data= [];
+    if(list && list.length)
+        data= list.map(function (data){
+            return {
+                date: new Date(data.date || Date.now()).toLocaleDateString(),
+                content: data.content,
+                error: data.error,
+            }
+        });
+    else
+        data= [{
             date: new Date().toLocaleDateString(),
             content: 0,
             error: 0,
-            link: 0,
-        }],
+        }]
+
+    Morris.Bar({
+        element: 'morris-bar-chart',
+        data: data,
         xkey: 'date',
         ykeys: ['content', 'error'],
-        labels: ['content', 'error'],
-        pointSize: 1,
+        labels: ['success', 'fail'],
         hideHover: 'auto',
         resize: true
     });
