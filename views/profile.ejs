@@ -35,6 +35,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="/script.js"></script>
 
 </head>
 
@@ -178,7 +179,7 @@
     if(profile_id){
         $.ajax({
             type: 'get',
-            url: $.getApiHost('/user/profile/'+ profile_id),
+            url: getApiHost('/user/profile/'+ profile_id),
             headers: {
                 authorization: $.getCookie('authorization')
             },
@@ -222,7 +223,7 @@
             headers: {
                 authorization: $.getCookie('authorization')
             },
-            url: $.getApiHost('/user/profile/'+ profile_id),
+            url: getApiHost('/user/profile/'+ profile_id),
             success: function (ret) {
                 console.log(ret);
                 alert('success');

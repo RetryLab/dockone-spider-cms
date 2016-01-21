@@ -1,0 +1,3 @@
+function getApiHost(path){
+    return "http://<%= process.env['apihost'] || '127.0.0.1:3000'%>"+ path;
+}

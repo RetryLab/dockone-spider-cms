@@ -29,6 +29,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="/script.js"></script>
 
 </head>
 
@@ -93,7 +94,7 @@
                 email: $('input[name="email"]').val(),
                 password: $('input[name="password"]').val(),
             },
-            url: $.getApiHost('/user/account'),
+            url: getApiHost('/user/account'),
             success: function (ret) {
                 alert('success.')
                 window.location='/login.html';

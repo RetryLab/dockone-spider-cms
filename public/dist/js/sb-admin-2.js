@@ -1,7 +1,3 @@
-$.getApiHost=function(path){
-    return "http://spider.app-open-cloud.com:3000"+ path;
-}
-
 $.setCookie= function (name, value, day) {
     var Days = day || 1;
     var exp = new Date();

@@ -5,6 +5,7 @@ module.exports = function (app) {
     //ping
     app.get('/ping', function (req, res) { res.send('OK'); });
 
+    app.get('/script.js', function (req, res) { res.render('script'); })
     //user signup
     app.get('/signup.html', function (req, res) { res.render('signup'); });
     //user login
