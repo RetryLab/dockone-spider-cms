@@ -1,5 +1,5 @@
 $.getApiHost=function(path){
-    return "http://114.112.58.126:3000"+ path;
+    return "http://spider.app-open-cloud.com:3000"+ path;
 }
 
 $.setCookie= function (name, value, day) {
