@@ -380,3 +380,8 @@ table.dataTable thead .sorting:after {
     overflow-x: auto;
     line-height: 1.5;
 }
+
+.thanks {
+    color: #999 !important;
+    text-align:center;
+}
