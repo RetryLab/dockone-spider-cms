@@ -131,10 +131,6 @@
                                             <label>receive_use(0~1)</label>
                                             <input class="form-control" name="receive_use"  placeholder="0.2">
                                         </div>
-                                        <div class="form-group" name="docker-script">
-                                            <label>Docker Script</label>
-                                            <pre class="form-control-static"></pre>
-                                        </div>
                                         <a onclick="submit()" class="btn btn-primary">Save</a>
                                         <!-- <button type="reset" class="btn btn-default">Reset Button</button> -->
                                     </form>
@@ -192,7 +188,7 @@
                 $('input[name="disk_use"]').val(data.disk_use);
                 $('input[name="transport_use"]').val(data.transport_use);
                 $('input[name="receive_use"]').val(data.receive_use);
-                $('div.form-group[name="docker-script"] pre').html((data.script || '').replace(/\s+/g, ' '));
+                // $('div.form-group[name="docker-script"] pre').html((data.script || '').replace(/\s+/g, ' '));
                 machine_id= data.machine_id;
             },
             error: function (error) {
