@@ -36,7 +36,6 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="/script.js"></script>
-
 </head>
 
 <body>
@@ -82,53 +81,45 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
+
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-laptop"></i> Machines</h1>
+                    <h1 class="page-header"><i class="fa fa-search"></i> Search</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
+                <div class="sidebar-search col-lg-9" style="margin: 25px 0px">
+                    <div class="input-group custom-search-form">
+                        <input name="search" type="text" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="submit();">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-laptop fa-fw"></i> Machine List
-                            <div class="pull-right">
-                                <div class="btn-group">
-                                    <a href="/machine.html" type="button" class="btn btn-primary btn-xs" >
-                                        New Machine
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Description</th>
-                                            <th>Options</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.panel-body -->
+                    <div class="table-responsive table-bordered">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Url</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
             <div class="row">
                 <p class="thanks">感谢提供赞助的《DockOne社区》《首都在线云平台》</p>
             </div>
@@ -146,42 +137,49 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+    <script src="../bower_components/raphael/raphael-min.js"></script>
+    <script src="../bower_components/morrisjs/morris.min.js"></script>
+    <!-- <script src="../js/morris-data.js"></script> -->
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
-    });
-
-    $.ajax({
-        type: 'get',
-        url: getApiHost('/user/machines'),
-        headers: {
-            authorization: $.getCookie('authorization')
-        },
-        success: function (data) {
-            if(Array.isArray(data)){
-                $('tbody').html(data.map(function(item) {
-                    return "<tr><td>"+item._id+"</td><td>"+item.name+"</td><td>"+item.description+"</td><td><a href='/machine.html?machine_id="+item._id+"' title='Update'><i class='fa fa-edit fa-fw'></i>Update</a> <a href='/profile.html?machine_id="+item._id+"' title='Add Profile'><i class='fa fa-plus-circle fa-fw'></i>Add Profile</a> <a href='/profiles.html?machine_id="+item._id+"' title='Profile List'><i class='fa fa-th-list fa-fw'></i>Profile List</a></td></tr>"
-                }).join(''))
-
-            } else {
-
-            }
-        },
-        error: function (error) {
-        }
-    });
-    </script>
-
 </body>
 
+<script type="text/javascript">
+    function submit () {
+        var url= $('input[name="search"]').val();
+        var path= "";
+        if(url)
+            path= getApiHost('/contents/?q=url:*'+ url+'*');
+        else
+            path= getApiHost('/contents');
+
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            headers: {
+                authorization: $.getCookie('authorization')
+            },
+            url: path,
+            success: function (ret) {
+
+                var total= ret.total;
+                if(total){
+                    var hits = ret.hits;
+                    var i=0;
+                    $('tbody').html(hits.map(function (info){
+                        i++;
+                        var item= info._source;
+                        return '<tr><td>'+i+'</td><td>'+item.url+'</td></tr>'+ '<tr class="words"><td colspan=2 ><p>'+(item.words || '').split('|').join(', ')+'</p><td></tr>'
+                    }).join(''))
+                }
+            },
+            error: function (error) {
+                alert('error:', error);
+            }
+        });
+    }
+</script>
 </html>

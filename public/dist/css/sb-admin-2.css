@@ -385,3 +385,19 @@ table.dataTable thead .sorting:after {
     color: #999 !important;
     text-align:center;
 }
+
+.words p{
+    height: 30px;
+    overflow: hidden;
+    line-height: 15px;
+    font-size: 10px;
+    transition: height 0.25s linear 0.25s;
+}
+.words p:hover{
+    height: 125px;
+    overflow-y:auto;
+}
+.words{
+    background: #eee !important;
+
+}
